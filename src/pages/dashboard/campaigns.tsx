@@ -66,11 +66,11 @@ export default function CampaignsPage() {
 
   const handleStepChange = (
     index: number,
-    field: string,
+    field: "subject" | "body" | "delay",
     value: string | number
   ) => {
     const updated = [...steps];
-    updated[index][field] = value;
+    updated[index][field] = value as never;
     setSteps(updated);
   };
 
