@@ -85,6 +85,7 @@ export default function SenderPage() {
     if (!confirmDelete) return;
 
     const token = await getToken();
+    if(!token) return;
     deleteSender({ senderId, token });
   };
   useEffect(() => {

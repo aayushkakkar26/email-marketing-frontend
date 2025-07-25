@@ -337,23 +337,22 @@ export default function CampaignsPage() {
 
             {/* Right: Campaign List */}
             <div className="space-y-6">
-              
               <style jsx>{`
-                  .custom-scrollbar::-webkit-scrollbar {
-                    width: 6px;
-                  }
-                  .custom-scrollbar::-webkit-scrollbar-track {
-                    background: #1a2332;
-                    border-radius: 3px;
-                  }
-                  .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: #2a3441;
-                    border-radius: 3px;
-                  }
-                  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: #3a4451;
-                  }
-                `}</style>
+                .custom-scrollbar::-webkit-scrollbar {
+                  width: 6px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                  background: #1a2332;
+                  border-radius: 3px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                  background: #2a3441;
+                  border-radius: 3px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                  background: #3a4451;
+                }
+              `}</style>
               <div className="max-h-[63.5rem] overflow-y-auto space-y-4 pr-2 mt-25 custom-scrollbar">
                 {loadingCampaigns ? (
                   <Card className="bg-slate-800/50 border-slate-700">
@@ -380,82 +379,87 @@ export default function CampaignsPage() {
                     </CardContent>
                   </Card>
                 ) : (
-                  campaignsData?.data.slice().reverse().map((campaign: any) => (
-                    <Card
-                      key={campaign._id.$oid}
-                      className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-colors"
-                    >
-                      <CardHeader className="pb-3">
-                        <div className="flex justify-between items-start">
-                          <div className="space-y-1">
-                            <CardTitle className="text-xl text-white">
-                              {campaign.name}
-                            </CardTitle>
+                  campaignsData?.data
+                    .slice()
+                    .reverse()
+                    .map((campaign: any) => (
+                      <Card
+                        key={campaign._id.$oid}
+                        className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-colors"
+                      >
+                        <CardHeader className="pb-3">
+                          <div className="flex justify-between items-start">
+                            <div className="space-y-1">
+                              <CardTitle className="text-xl text-white">
+                                {campaign.name}
+                              </CardTitle>
+                              <div className="flex items-center gap-2 text-sm text-slate-400">
+                                <Mail className="h-3 w-3" />
+                                {campaign.senderEmail}
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <Badge
+                                variant={
+                                  campaign.status === "sent"
+                                    ? "default"
+                                    : "secondary"
+                                }
+                                className={
+                                  campaign.status === "sent"
+                                    ? "bg-emerald-600 hover:bg-emerald-700"
+                                    : "bg-yellow-600 hover:bg-yellow-700"
+                                }
+                              >
+                                {campaign.status}
+                              </Badge>
+                              <div className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                                <Calendar className="h-3 w-3" />
+                                {new Date(
+                                  campaign.createdAt
+                                ).toLocaleDateString()}
+                              </div>
+                            </div>
+                          </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="flex items-center gap-2 text-sm">
+                              <Users className="h-4 w-4 text-slate-400" />
+                              <span className="text-slate-300">
+                                {campaign.recipients.length} recipients
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <TrendingUp className="h-4 w-4 text-slate-400" />
+                              <span className="text-slate-300">
+                                {campaign.openRate}% open rate
+                              </span>
+                            </div>
+                          </div>
+
+                          <Separator className="bg-slate-700" />
+
+                          <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2 text-sm text-slate-400">
-                              <Mail className="h-3 w-3" />
-                              {campaign.senderEmail}
+                              <Send className="h-4 w-4" />
+                              {campaign.steps.length} step
+                              {campaign.steps.length > 1 ? "s" : ""}
+                            </div>
+                            <div className="flex gap-2">
+                              {campaign.steps.map(
+                                (_step: any, stepIndex: number) => (
+                                  <div
+                                    key={stepIndex}
+                                    className="w-2 h-2 bg-blue-600 rounded-full"
+                                  />
+                                )
+                              )}
                             </div>
                           </div>
-                          <div className="text-right">
-                            <Badge
-                              variant={
-                                campaign.status === "sent"
-                                  ? "default"
-                                  : "secondary"
-                              }
-                              className={
-                                campaign.status === "sent"
-                                  ? "bg-emerald-600 hover:bg-emerald-700"
-                                  : "bg-yellow-600 hover:bg-yellow-700"
-                              }
-                            >
-                              {campaign.status}
-                            </Badge>
-                            <div className="text-xs text-slate-500 mt-1 flex items-center gap-1">
-                              <Calendar className="h-3 w-3" />
-                              {new Date(
-                                campaign.createdAt
-                              ).toLocaleDateString()}
-                            </div>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="flex items-center gap-2 text-sm">
-                            <Users className="h-4 w-4 text-slate-400" />
-                            <span className="text-slate-300">
-                              {campaign.recipients.length} recipients
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm">
-                            <TrendingUp className="h-4 w-4 text-slate-400" />
-                            <span className="text-slate-300">
-                              {campaign.openRate}% open rate
-                            </span>
-                          </div>
-                        </div>
-
-                        <Separator className="bg-slate-700" />
-
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-sm text-slate-400">
-                            <Send className="h-4 w-4" />
-                            {campaign.steps.length} step
-                            {campaign.steps.length > 1 ? "s" : ""}
-                          </div>
-                          <div className="flex gap-2">
-                            {campaign.steps.map((_, stepIndex) => (
-                              <div
-                                key={stepIndex}
-                                className="w-2 h-2 bg-blue-600 rounded-full"
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))
+                        </CardContent>
+                      </Card>
+                    ))
                 )}
               </div>
             </div>

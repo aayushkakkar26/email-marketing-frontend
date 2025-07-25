@@ -237,7 +237,15 @@ export default function DashboardPage() {
                   }
                 `}</style>
                 <div className="space-y-4 max-h-80 overflow-y-auto custom-scrollbar">
-                  {campaigns.slice().reverse().map((c) => (
+                  {campaigns.slice().reverse().map((c: {
+                    _id: string;
+                    name: string;
+                    steps: any[];
+                    recipients: any[];
+                    createdAt: string;
+                    status: string;
+                    openRate: number;
+                  }) => (
                     <div
                       key={c._id}
                       className="flex items-start justify-between p-4 rounded-lg border border-[#1a2332] hover:border-[#2a3441] transition-all duration-200 hover:shadow-lg"
