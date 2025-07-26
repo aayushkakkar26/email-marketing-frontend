@@ -19,8 +19,9 @@ Docker & Docker Compose
 Create a .env.local file based on the example below:
 
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_frontend_api
 CLERK_SECRET_KEY=your_clerk_secret_key
+NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_frontend_api
+NEXT_PUBLIC_API_BASE_URL=your_backend_base_url
 
 You can include these in a .env.example file too.
 
